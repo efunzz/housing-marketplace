@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
 import { HousingLocation } from '../housing-location';
 
 @Component({
   selector: 'app-home',
-  imports: [HousingLocationComponent],
+  imports: [CommonModule, HousingLocationComponent],
   template: `
    <section>
       <form>
@@ -13,13 +14,14 @@ import { HousingLocation } from '../housing-location';
       </form>
    </section>
    <section class="results">
-      <app-housing-location></app-housing-location>
+      <app-housing-location [housingLocation]="housingLocation"></app-housing-location>
     </section>
   `,
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
   readonly baseUrl = 'https://angular.dev/assets/images/tutorials/common';
+  //create new object based on interface 
   housingLocation: HousingLocation = {
     id: 9999,
     name: 'Test Home',
