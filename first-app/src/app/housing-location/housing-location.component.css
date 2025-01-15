@@ -20,7 +20,7 @@
     content: url("/location-pin.svg") / "";
   }
   section.listing a {
-    padding-left: 20px;
+    padding-left: 0px;
     text-decoration: none;
     color: var(--primary-color);
   }
