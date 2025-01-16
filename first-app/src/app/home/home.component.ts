@@ -14,7 +14,6 @@ import { HousingService } from '../housing.service';
       </form>
    </section>
    <section class="results">
-      
       @for (housingLocation of filteredLocationList; track housingLocation.id) {
             <app-housing-location [housingLocation]="housingLocation"></app-housing-location>
         } @empty {
@@ -25,17 +24,21 @@ import { HousingService } from '../housing.service';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-    //create new object based on interface 
-    housingLocationList: HousingLocation [];
-    private housingService = inject(HousingService);
-
-    //create new property filter
+   // declare property
+    housingLocationList: HousingLocation []; //declaring property ref to the housing-location.ts an array of HousingLocation objects
     filteredLocationList:HousingLocation[];
 
+    private housingService = inject(HousingService); // ref to housing.service.ts
 
+    //The constructor is called automatically when an instance of the class is created
     constructor( ) {
-      this.housingLocationList = this.housingService.getAllHousingLocations();
-      this.filteredLocationList = this.housingLocationList;
+      //initialize 
+      this.housingLocationList = [];
+      this.filteredLocationList =[];
+      this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocation[]) => {
+        this.housingLocationList = housingLocationList;
+        this.filteredLocationList = housingLocationList;
+      });
     }
 
     filterResults(text: string){
@@ -47,7 +50,5 @@ export class HomeComponent {
       this.filteredLocationList = this.housingLocationList.filter((housingLocation) =>
         housingLocation?.city.toLowerCase().includes(text.toLowerCase()),
       );
-
-
     }
 }
